@@ -9,10 +9,10 @@ from nltk.corpus import stopwords
 #The corpus
 all_descriptions = ''
 #Excludes non-English-language offices to avoid translation issues
-ignore_offices = [6827,18842,18859,18855]
+ignore_offices = [6827,18842,18859,18855,18858]
 
-#Unicode is a pain
-clean_strings = ['&lt;p&gt;','&lt;div&gt;','&lt;/div&gt;''&lt;strong&gt;','&lt;/strong&gt;',u'\u2013','&lt;/li&gt;','&lt;/ul&gt;','&lt;ul&gt;','&lt;li&gt;','&lt;span&gt;','&lt;/span&gt;','&lt;br&gt;','&lt;/p&gt;','&lt;','&gt;','&;','quot','\u0026lt;li\u0026gt;','','\u0026lt;strong\u0026gt;','\u0026lt;','\u0026gt;','\u0026quot;','style','font','weight','400;','span','strong','BuzzFeed is the leading independent digital media and tech company delivering news and entertainment content to a global audience. We have offices in 19 cities around the world and more than 1500 employees including reporters, video producers, data scientists, engineers, brand strategists, and more. We fuse hard work and fun, through a culture of experimentation, teamwork, equality, and humble confidence. As an employee', 'enjoy perks like office events, snacks, career development courses, and no work on your birthday! But most importantly',u'\xa0',u'\u2014',u'\u2019',u'\u201d',u'\u201c','work with inspiring colleagues to build tools and create content that helps connect people all over the world.','=&;-:','&;','Requirements:','href','www','work','http','.com','amp;','To Apply For This Position:',u'\xa3',u'\u2026',u'\xe9',u'\xad','li ','is the leading independent digital media and tech company delivering news and entertainment content to a global audience. We have offices in 18 cities around the world and more than 1300 employees including reporters, video producers, data scientists, engineers, brand strategists, and more. We infuse hard work and fun though a culture of experimentation, teamwork, equality, and humble confidence. As an employee,','div/div',u'\u200b','Responsibilities:','/div','=-size: small;','youll']
+#Remove HTML markup
+clean_strings = ['&lt;p&gt;','&lt;div&gt;','&lt;/div&gt;''&lt;strong&gt;','&lt;/strong&gt;',u'\u2013','&lt;/li&gt;','&lt;/ul&gt;','&lt;ul&gt;','&lt;li&gt;','&lt;span&gt;','&lt;/span&gt;','&lt;br&gt;','&lt;/p&gt;','&lt;','&gt;','&;','quot','\u0026lt;li\u0026gt;','','\u0026lt;strong\u0026gt;','\u0026lt;','\u0026gt;','\u0026quot;','style','font','weight','400;','span','strong','BuzzFeed is the leading independent digital media and tech company delivering news and entertainment content to a global audience. We have offices in 19 cities around the world and more than 1500 employees including reporters, video producers, data scientists, engineers, brand strategists, and more. We fuse hard work and fun, through a culture of experimentation, teamwork, equality, and humble confidence. As an employee', 'enjoy perks like office events, snacks, career development courses, and no work on your birthday! But most importantly',u'\xa0',u'\u2014',u'\u2019',u'\u201d',u'\u201c','work with inspiring colleagues to build tools and create content that helps connect people all over the world.','=&;-:','&;','Requirements:','href','www','work','http','.com','amp;','To Apply For This Position:',u'\xa3',u'\u2026',u'\xe9',u'\xad','li ','is the leading independent digital media and tech company delivering news and entertainment content to a global audience. We have offices in 18 cities around the world and more than 1300 employees including reporters, video producers, data scientists, engineers, brand strategists, and more. We infuse hard work and fun though a culture of experimentation, teamwork, equality, and humble confidence. As an employee,','div/div',u'\u200b','Responsibilities:','/div','=-size: small;','youll','â€™']
 
 #populate job IDs from job board
 jobIds = []
@@ -34,10 +34,10 @@ for jobId in jobIds:
                 descrip = descrip.replace(s,"")
             all_descriptions = all_descriptions + ' ' + descrip.decode("utf8")
     except:
+        print('Error with listing no. ' + jobId)
         continue
-    print(descrip)
     
-    #Save corpus for later
+    #You can save corpus for later
     f = open('Buzzfeed.txt','w')
     f.write(all_descriptions)
     f.close
